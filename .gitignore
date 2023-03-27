@@ -9,6 +9,7 @@ application/logs/*
 # !application/*/.htaccess
 
 upload/*
+!upload
 !upload/bukti_transfer
 
 composer.lock
