@@ -5,7 +5,7 @@ class M_chekout extends CI_Model
 {
     public function __construct()
     {
-        parent::__construct();
+        parent::__construct(); 
     }
     function m_simpan_pesanan($id_favorit = array(), $kode_chekout, $data_cart, $action, $data_favorit)
     // function m_simpan_pesanan($action)

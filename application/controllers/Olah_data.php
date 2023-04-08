@@ -18,7 +18,7 @@ class Olah_data extends CI_Controller
 		$this->load->model('m_olah_data');
 	}
 
-	public function index()
+	public function index()  
 	{
 		if ($this->session->userdata("privilage") == 'admin') {
 			$data['_title'] = 'Olah Data';
@@ -30,6 +30,43 @@ class Olah_data extends CI_Controller
 			$this->load->view('layout/index', $data);
 		} else {
 			redirect(base_url(''));
+		}
+	}
+
+	function pengaturan(){
+		$data['_script'] = 'olah_data/olah_data_js';
+		$data['_view'] = 'olah_data/pengaturan';
+		$data['pengaturan'] = $this->m_olah_data->m_list_pengaturan();
+		$this->load->view('olah_data/pengaturan', $data);
+	}
+
+	function update_pengaturan(){
+		$data = array(
+			'id' => $this->input->post('id'),
+			'name'  => $this->input->post('name'),
+			'value' => $this->input->post('value'),
+		);
+		$this->db->trans_begin();
+		try{
+			$data = $this->m_olah_data->m_update_pengaturan($data);
+			if ($this->db->trans_status() === FALSE){
+				$this->db->trans_rollback();
+			}else{
+				$this->db->trans_commit();
+			}
+			return $this->output->set_content_type('application/json')
+			->set_output(json_encode([
+				'status' => true,
+				'message' => 'Pengaturan berhasil di update',
+				'data' => $data,
+			]));
+        }catch(Exception $e) {
+			$this->db->trans_rollback();
+            return $this->output->set_content_type('application/json')
+            ->set_output(json_encode([
+                'status' => false,
+                'message' => $e->getMessage(),
+            ]));
 		}
 	}
 

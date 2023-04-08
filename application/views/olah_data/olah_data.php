@@ -50,6 +50,7 @@
                         <button type="button" id="btn-jenis-produk" class="btn_1 full-width btn-menu-active">Jenis Produk</button>
                         <button type="button" id="btn-harga-produk" class="btn-menu btn_1 full-width">Harga Produk</button>
                         <button type="button" id="btn-foto-produk" class="btn-menu btn_1 full-width">Foto Produk</button>
+                        <button type="button" id="btn-pengaturan" class="btn-menu btn_1 full-width">Pengaturan</button>
                         <hr>
                         <h4>Menu Pemesanan</h4>
                         <button type="button" id="btn-vali-pesanan" class="btn-menu btn_1 full-width">Validasi Pemesanan <span id="" class="badge badge-danger notif-pesanan"></span></button>
@@ -338,6 +339,41 @@
                                         </div>
                                         <div class="col">
                                             <button type="submit" id="submit-simpan-foto" class="col-12 btn btn-sm btn-info float-right" value="">Simpan</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="form-pengaturan" hidden>
+                    <div class="box_account">
+                        <div class="form_container">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-12">
+                                    <h5>Update Pengaturan</h5>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="private box">
+                                <form action="" method="POST" id="form-edit-pengaturan" role="form">
+                                    <input type="hidden" value="" id="id" name="id"/>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <input type="text" id="name" name="name" class="form-control" readonly required>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" id="value" name="value" class="form-control" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <button type="reset" id="btn-batal-pengaturan" class="col-12 btn btn-sm btn-danger">Batal</button>
+                                        </div>
+                                        <div class="col">
+                                            <button type="submit" id="submit-simpan-pengaturan" class="col-12 btn btn-sm btn-info float-right" value="">Simpan</button>
                                         </div>
                                     </div>
                                 </form>

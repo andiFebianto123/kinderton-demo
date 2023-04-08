@@ -14,6 +14,7 @@
             $('#form-harga-produk').attr('hidden', true);
             $('#form-foto-produk').attr('hidden', true);
             $('#detail-pesanan').attr('hidden', true);
+            $('#form-pengaturan').attr('hidden', true);
         });
         $('#btn-harga-produk').click(function(e) {
             $('.form-data').load('<?php echo site_url('Olah_data/harga_produk'); ?>');
@@ -37,6 +38,7 @@
             $('#form-foto-produk').attr('hidden', true);
             $('#form-jenis-produk').attr('hidden', true);
             $('#detail-pesanan').attr('hidden', true);
+            $('#form-pengaturan').attr('hidden', true);
             form_harga_produk();
         });
         $('#btn-foto-produk').click(function(e) {
@@ -60,14 +62,25 @@
             $('#form-harga-produk').attr('hidden', true);
             $('#form-jenis-produk').attr('hidden', true);
             $('#detail-pesanan').attr('hidden', true);
+            $('#form-pengaturan').attr('hidden', true);
             form_jenis_produk();
         });
+
+        $('#btn-pengaturan').click(function(){
+            $('.form-data').load('<?php echo site_url('Olah_data/pengaturan'); ?>');
+            $('#form-foto-produk').attr('hidden', true);
+            $('#form-harga-produk').attr('hidden', true);
+            $('#form-jenis-produk').attr('hidden', true);
+            $('#detail-pesanan').attr('hidden', true);
+        });
+
         $('#btn-vali-pesanan').click(function(e) {
             $('.form-data').load('<?php echo site_url('Chekout/vali_pesanan'); ?>');
             $('#detail-pesanan').attr('hidden', true);
             $('#form-foto-produk').attr('hidden', true);
             $('#form-jenis-produk').attr('hidden', true);
             $('#form-harga-produk').attr('hidden', true);
+            $('#form-pengaturan').attr('hidden', true);
         });
         $('#btn-pesanan-dikirim').click(function(e) {
             $('.form-data').load('<?php echo site_url('Chekout/pesanan_dikirim'); ?>');
@@ -75,6 +88,7 @@
             $('#form-foto-produk').attr('hidden', true);
             $('#form-jenis-produk').attr('hidden', true);
             $('#form-harga-produk').attr('hidden', true);
+            $('#form-pengaturan').attr('hidden', true);
         });
         $('#btn-riwayat-pesanan').click(function(e) {
             $('.form-data').load('<?php echo site_url('Chekout/riwayat_pesanan'); ?>');
@@ -82,6 +96,7 @@
             $('#form-foto-produk').attr('hidden', true);
             $('#form-jenis-produk').attr('hidden', true);
             $('#form-harga-produk').attr('hidden', true);
+            $('#form-pengaturan').attr('hidden', true);
         });
 
         // JENIS PRODUK JS
@@ -393,6 +408,42 @@
                 }
             }
 
+        });
+
+        $('.btn-batal').click(function(e) {
+            $('#form-pengaturan').attr('hidden', true);
+            $('#form-edit-pengaturan #name').val('');
+            $('#form-edit-pengaturan #value').val('');
+        });
+
+        $('#btn-batal-pengaturan').click(function(){
+            event.preventDefault();
+            $('#form-pengaturan').attr('hidden', true);
+        })
+
+        $('#submit-simpan-pengaturan').click(function(){
+            event.preventDefault();
+            var formData = new FormData($("#form-edit-pengaturan")[0]);
+            $.ajax({
+                type: 'POST',
+                url: "<?php echo site_url('olah_data/update_pengaturan') ?>",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(msg) {
+                    if(msg.status){
+                        $('#form-pengaturan').attr('hidden', true);
+                        $('.form-data').load('<?php echo site_url('Olah_data/pengaturan'); ?>');
+                        alert(msg.message);
+                    }else{
+                        alert(msg.message);
+                    }
+                    return;
+                },
+                error: function() {
+                    alert("Data Gagal Diupdate");
+                }
+            });
         });
 
         $(document).on("click", ".pilih-fot-produk", function() {

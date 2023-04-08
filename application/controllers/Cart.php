@@ -26,7 +26,10 @@ class Cart extends CI_Controller
         $data['cart_ditolak'] = $this->m_cart->m_data_cart_ditolak();
         $data['cart_selesai_dikirim'] = $this->m_cart->m_data_cart_selesai_dikirim();
         // $data['cart_riwayat_pesanan'] = $this->m_cart->m_data_cart_riwayat_pesanan();
-        $data['_view'] = 'layout/data_modal/cart';
+        $data['_view'] = 'layout/data_modal/cart'; 
+        // echo "<pre>";
+        //     var_dump($data);
+        // echo "</pre>";
         $this->load->view('layout/data_modal/cart', $data);
     }
 

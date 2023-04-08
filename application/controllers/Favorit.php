@@ -20,7 +20,7 @@ class Favorit extends CI_Controller
         $data['foto_produk'] = $this->m_olah_data->m_list_foto_produk();
         $data['data_favorit'] = $this->m_favorit->m_data_favorit();
         $this->load->view('layout/data_modal/addtocart_favorit', $data);
-        // $this->load->view('layout/index', $script);
+        // $this->load->view('layout/index', $script); 
     }
 
     function select_favorit()

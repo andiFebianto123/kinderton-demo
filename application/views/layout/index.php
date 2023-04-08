@@ -281,6 +281,18 @@
 
         $('#buat-pesanan-addtocart').click(function(e){
             e.preventDefault();
+            var type_cart = $('#btn-ok-addtocart').val();
+            var id_favorit = [];
+            if(type_cart == 'favorit'){
+                $(".chekout:checked").each(function() {
+                    var userid = $(this).val();
+                    id_favorit.push(userid);
+                });
+                if(id_favorit.length == 0){
+                    return;
+                }
+            }
+            
             $('#loader-add-tocart').show();
             $('#total-pembayaran').html($('#total-addtocart').text());
             $.ajax({
@@ -288,6 +300,8 @@
                 type: 'post',
                 data: {
                     action: $('#btn-ok-addtocart').val(),
+                    id: id_favorit,
+
                     kode_chekout: $('#kode-cart').text(),
 
                     tgl_bayar: $('#tgl-tempo').text(),
@@ -533,8 +547,13 @@
         });
 
         $('#btn-addtocart-favorit').click(function(e) {
+            $('#loader-add-tocart').hide();
+            $('#alert-make-checkout').hide();
+            $('#btn-beli-sekarang').hide();
+            $('#buat-pesanan-addtocart').addClass('btn-disabled-b-pesanan').attr('disabled', true);
             $('#data_modal_addtocart').load('<?php echo site_url('Favorit/data_favorit'); ?>');
-        });
+        }); 
+
         $('#btn-cart').click(function(e) {
             $('#data_modal_addtocart').load('<?php echo site_url('Cart/data_cart'); ?>');
         });

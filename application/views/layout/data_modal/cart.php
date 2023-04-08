@@ -249,8 +249,15 @@
                                 <div class="col pl-1">
                                     <span class="float-right text-danger font-size-xs"><?php echo $data->status_pembayaran; ?></span>
                                     <?php
-                                    $sql = "SELECT * FROM favorit, jenis_produk, foto_produk, harga_produk WHERE jenis_produk.id_jp = favorit.produk 
-                            AND foto_produk.id_fotpro = favorit.foto_favorit AND harga_produk.id_hrg = favorit.hrg_favorit AND favorit.kode_chekout = $data->kode_cart";
+                                    $sql = "SELECT * FROM 
+                                        favorit, 
+                                        jenis_produk, 
+                                        foto_produk, 
+                                        harga_produk WHERE 
+                                        jenis_produk.id_jp = favorit.produk 
+                                        AND foto_produk.id_fotpro = favorit.foto_favorit 
+                                        AND harga_produk.id_hrg = favorit.hrg_favorit 
+                                        AND favorit.kode_chekout = '$data->kode_cart'";
                                     $query = $this->db->query($sql);
                                     if ($query->num_rows() > 0) {
                                         foreach ($query->result() as $nmproduk) {
@@ -270,7 +277,7 @@
                                 <div class="row">
                                     <?php
                                     $sql = "SELECT * FROM favorit, jenis_produk, foto_produk, harga_produk WHERE jenis_produk.id_jp = favorit.produk 
-                            AND foto_produk.id_fotpro = favorit.foto_favorit AND harga_produk.id_hrg = favorit.hrg_favorit AND favorit.kode_chekout = $data->kode_cart";
+                            AND foto_produk.id_fotpro = favorit.foto_favorit AND harga_produk.id_hrg = favorit.hrg_favorit AND favorit.kode_chekout = '$data->kode_cart'";
                                     $query = $this->db->query($sql);
                                     if ($query->num_rows() > 0) {
                                         foreach ($query->result() as $produk_cart) {
@@ -395,7 +402,7 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <a href="#page">
-                                            <button type="button" class="btn btn-xs bg-gradient-danger float-right btn-bayar-sekarang" data-id-cart="<?php echo $data->id_cart; ?>" data-kode-pesanan="<?php echo $data->kode_cart; ?>" data-tgl="<?php echo $data->tgl_pembayaran; ?>" data-jam="<?php echo $data->jam_pembayaran; ?>" data-mode-bayar="<?php echo $data->mode_pembayaran; ?>" id="">
+                                            <button type="button" class="btn btn-xs bg-gradient-danger float-right" onclick="window.open('<?php echo $data->url_invoice ?>', '_blank').focus()" data-id-cart="<?php echo $data->id_cart; ?>" data-kode-pesanan="<?php echo $data->kode_cart; ?>" data-tgl="<?php echo $data->tgl_pembayaran; ?>" data-jam="<?php echo $data->jam_pembayaran; ?>" data-mode-bayar="<?php echo $data->mode_pembayaran; ?>" id="">
                                                 <i class="fa-solid fa-cash-register"></i> Bayar sekarang
                                             </button>
                                         </a>
@@ -470,7 +477,8 @@
                                     <span class="float-right text-warning font-size-xs"><?php echo $data->status_pembayaran; ?></span>
                                     <?php
                                     $sql = "SELECT * FROM favorit, jenis_produk, foto_produk, harga_produk WHERE jenis_produk.id_jp = favorit.produk 
-                            AND foto_produk.id_fotpro = favorit.foto_favorit AND harga_produk.id_hrg = favorit.hrg_favorit AND favorit.kode_chekout = $data->kode_cart";
+                            AND foto_produk.id_fotpro = favorit.foto_favorit AND harga_produk.id_hrg = favorit.hrg_favorit 
+                            AND favorit.kode_chekout = '$data->kode_cart'";
                                     $query = $this->db->query($sql);
                                     if ($query->num_rows() > 0) {
                                         foreach ($query->result() as $nmproduk) {
@@ -492,7 +500,8 @@
                                 <div class="row">
                                     <?php
                                     $sql = "SELECT * FROM favorit, jenis_produk, foto_produk, harga_produk WHERE jenis_produk.id_jp = favorit.produk 
-                                AND foto_produk.id_fotpro = favorit.foto_favorit AND harga_produk.id_hrg = favorit.hrg_favorit AND favorit.kode_chekout = $data->kode_cart";
+                                AND foto_produk.id_fotpro = favorit.foto_favorit AND harga_produk.id_hrg = favorit.hrg_favorit 
+                                AND favorit.kode_chekout = '$data->kode_cart'";
                                     $query = $this->db->query($sql);
                                     if ($query->num_rows() > 0) {
                                         foreach ($query->result() as $produk_cart) {
@@ -654,7 +663,7 @@
                                     <span class="float-right text-primary font-size-xs"><?php echo $data->status_pembayaran; ?></span>
                                     <?php
                                     $sql = "SELECT * FROM favorit, jenis_produk, foto_produk, harga_produk WHERE jenis_produk.id_jp = favorit.produk 
-                            AND foto_produk.id_fotpro = favorit.foto_favorit AND harga_produk.id_hrg = favorit.hrg_favorit AND favorit.kode_chekout = $data->kode_cart";
+                            AND foto_produk.id_fotpro = favorit.foto_favorit AND harga_produk.id_hrg = favorit.hrg_favorit AND favorit.kode_chekout = '$data->kode_cart'";
                                     $query = $this->db->query($sql);
                                     if ($query->num_rows() > 0) {
                                         foreach ($query->result() as $nmproduk) {
@@ -676,7 +685,7 @@
                                 <div class="row">
                                     <?php
                                     $sql = "SELECT * FROM favorit, jenis_produk, foto_produk, harga_produk WHERE jenis_produk.id_jp = favorit.produk 
-                                AND foto_produk.id_fotpro = favorit.foto_favorit AND harga_produk.id_hrg = favorit.hrg_favorit AND favorit.kode_chekout = $data->kode_cart";
+                                AND foto_produk.id_fotpro = favorit.foto_favorit AND harga_produk.id_hrg = favorit.hrg_favorit AND favorit.kode_chekout = '$data->kode_cart'";
                                     $query = $this->db->query($sql);
                                     if ($query->num_rows() > 0) {
                                         foreach ($query->result() as $produk_cart) {
@@ -838,7 +847,7 @@
                                     <span class="float-right text-success font-size-xs"><?php echo $data->status_pembayaran; ?></span>
                                     <?php
                                     $sql = "SELECT * FROM favorit, jenis_produk, foto_produk, harga_produk WHERE jenis_produk.id_jp = favorit.produk 
-                            AND foto_produk.id_fotpro = favorit.foto_favorit AND harga_produk.id_hrg = favorit.hrg_favorit AND favorit.kode_chekout = $data->kode_cart";
+                            AND foto_produk.id_fotpro = favorit.foto_favorit AND harga_produk.id_hrg = favorit.hrg_favorit AND favorit.kode_chekout = '$data->kode_cart'";
                                     $query = $this->db->query($sql);
                                     if ($query->num_rows() > 0) {
                                         foreach ($query->result() as $nmproduk) {
@@ -860,7 +869,7 @@
                                 <div class="row">
                                     <?php
                                     $sql = "SELECT * FROM favorit, jenis_produk, foto_produk, harga_produk WHERE jenis_produk.id_jp = favorit.produk 
-                                AND foto_produk.id_fotpro = favorit.foto_favorit AND harga_produk.id_hrg = favorit.hrg_favorit AND favorit.kode_chekout = $data->kode_cart";
+                                AND foto_produk.id_fotpro = favorit.foto_favorit AND harga_produk.id_hrg = favorit.hrg_favorit AND favorit.kode_chekout = '$data->kode_cart'";
                                     $query = $this->db->query($sql);
                                     if ($query->num_rows() > 0) {
                                         foreach ($query->result() as $produk_cart) {
@@ -1042,7 +1051,7 @@
                                     <span class="float-right text-success font-size-xs"><?php echo $data->status_pembayaran; ?></span>
                                     <?php
                                     $sql = "SELECT * FROM favorit, jenis_produk, foto_produk, harga_produk WHERE jenis_produk.id_jp = favorit.produk 
-                            AND foto_produk.id_fotpro = favorit.foto_favorit AND harga_produk.id_hrg = favorit.hrg_favorit AND favorit.kode_chekout = $data->kode_cart";
+                            AND foto_produk.id_fotpro = favorit.foto_favorit AND harga_produk.id_hrg = favorit.hrg_favorit AND favorit.kode_chekout = '$data->kode_cart'";
                                     $query = $this->db->query($sql);
                                     if ($query->num_rows() > 0) {
                                         foreach ($query->result() as $nmproduk) {
@@ -1064,7 +1073,7 @@
                                 <div class="row">
                                     <?php
                                     $sql = "SELECT * FROM favorit, jenis_produk, foto_produk, harga_produk WHERE jenis_produk.id_jp = favorit.produk 
-                                AND foto_produk.id_fotpro = favorit.foto_favorit AND harga_produk.id_hrg = favorit.hrg_favorit AND favorit.kode_chekout = $data->kode_cart";
+                                AND foto_produk.id_fotpro = favorit.foto_favorit AND harga_produk.id_hrg = favorit.hrg_favorit AND favorit.kode_chekout = '$data->kode_cart'";
                                     $query = $this->db->query($sql);
                                     if ($query->num_rows() > 0) {
                                         foreach ($query->result() as $produk_cart) {
@@ -1246,7 +1255,7 @@
                                     <span class="float-right text-danger font-size-xs"><?php echo $data->status_pembayaran; ?></span>
                                     <?php
                                     $sql = "SELECT * FROM favorit, jenis_produk, foto_produk, harga_produk WHERE jenis_produk.id_jp = favorit.produk 
-                            AND foto_produk.id_fotpro = favorit.foto_favorit AND harga_produk.id_hrg = favorit.hrg_favorit AND favorit.kode_chekout = $data->kode_cart";
+                            AND foto_produk.id_fotpro = favorit.foto_favorit AND harga_produk.id_hrg = favorit.hrg_favorit AND favorit.kode_chekout = '$data->kode_cart'";
                                     $query = $this->db->query($sql);
                                     if ($query->num_rows() > 0) {
                                         foreach ($query->result() as $nmproduk) {
@@ -1268,7 +1277,7 @@
                                 <div class="row">
                                     <?php
                                     $sql = "SELECT * FROM favorit, jenis_produk, foto_produk, harga_produk WHERE jenis_produk.id_jp = favorit.produk 
-                                AND foto_produk.id_fotpro = favorit.foto_favorit AND harga_produk.id_hrg = favorit.hrg_favorit AND favorit.kode_chekout = $data->kode_cart";
+                                AND foto_produk.id_fotpro = favorit.foto_favorit AND harga_produk.id_hrg = favorit.hrg_favorit AND favorit.kode_chekout = '$data->kode_cart'";
                                     $query = $this->db->query($sql);
                                     if ($query->num_rows() > 0) {
                                         foreach ($query->result() as $produk_cart) {

@@ -10,6 +10,15 @@ class M_olah_data extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
+
+    function m_list_pengaturan(){
+        $this->db->select('*');
+        $this->db->from('pengaturan');
+        $this->db->order_by('id', 'desc');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
     function m_list_foto_produk()
     {
         $this->db->select('*');
@@ -69,6 +78,13 @@ class M_olah_data extends CI_Model
         $jenis = $this->db->query("UPDATE jenis_produk SET status_produk='$status_produk' WHERE id_jp='$id_hrg_produk'");
         return $result;
         return $jenis;
+    }
+
+    function m_update_pengaturan($request){
+        $update = $this->db->set('value', $request['value'])
+        ->where('id', $request['id'])
+        ->update('pengaturan');
+        return;
     }
 
     function m_edit_harga_produk($id_hrg, $id_hrg_produk, $hrg_awal, $diskon, $hrg_diskon, $all_size, $small, $medium, $large, $extra_large, $extra2_large, $tgl_akhir_promo, $status_produk, $jam_akhir_promo)

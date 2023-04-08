@@ -1,5 +1,5 @@
 <?php
-use Xendit\Xendit;
+// use Xendit\Xendit;
 /**
  * CodeIgniter
  *
@@ -314,6 +314,6 @@ switch (ENVIRONMENT)
  * And away we go...
  */
 require FCPATH . 'vendor/autoload.php';
-$xendit_key = "xnd_development_Xycy2CmBb6W69KdmpCCTwBuwMlaWtu38E23512vwHTTr7etK6eIyIenbLnd2BKTn";
-Xendit::setApiKey($xendit_key);
+// $xendit_key = "xnd_development_Xycy2CmBb6W69KdmpCCTwBuwMlaWtu38E23512vwHTTr7etK6eIyIenbLnd2BKTn";
+// Xendit::setApiKey($xendit_key);
 require_once BASEPATH.'core/CodeIgniter.php';

@@ -17,7 +17,7 @@
                 AND favorit.kode_chekout = cart.kode_cart 
                 AND bukti_transfer.kode_pesanan = cart.kode_cart 
                 AND user.id_user = cart.cart_user
-                AND bukti_transfer.kode_pesanan = $kode_pesanan";
+                AND bukti_transfer.kode_pesanan = '$kode_pesanan'";
             $query = $this->db->query($sql);
             if ($query->num_rows() > 0) {
                 foreach ($query->result() as $data) :

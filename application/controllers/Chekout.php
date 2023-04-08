@@ -1,8 +1,8 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-use Xendit\Xendit;
 use Carbon\Carbon;
+use Xendit\Invoice;
 
 class Chekout extends CI_Controller
 {
@@ -19,12 +19,105 @@ class Chekout extends CI_Controller
     }
 
     function show_saldo(){
+        xendit_loaded();
         $getBalance = \Xendit\Balance::getBalance('CASH');
         var_dump($getBalance);
     }
 
-    function create_invoice(){
+    function callback_invoice(){
+        xendit_loaded();
+        $this->db->trans_begin();
+        try{
+            $rawRequest = file_get_contents("php://input");
+            $request = json_decode($rawRequest, true);
+            
+            $_id = $request['id'];
+            $_externalId = $request['external_id'];
+            $_userId = $request['user_id'];
+            $_status = $request['status'];
+            $_paidAmount = $request['paid_amount'];
+            $_paidAt = $request['paid_at'];
+            $_paymentChannel = $request['payment_channel'];
+            $_paymentDestination = $request['payment_destination'];
+            
+            $status = 'Belum Bayar';
+            if($_status == 'PAID'){
+                $status = 'Sudah Bayar';
+                $date_convert = Carbon::parse($_paidAt);
+                
+                $date = $date_convert->format('m-d-Y');
+                $time = $date_convert->format('H:i:s');
+                
+                $this->db
+                ->set('mode_pembayaran', $_paymentChannel)
+                ->set('total_pembayaran', $_paidAmount)
+                ->set('status_pembayaran', $status)
+                ->where([
+                    'kode_cart' => $_externalId
+                ])
+                ->update('cart');
+                
+                $transfer_exists = $this->db->get_where('bukti_transfer', [
+                    'kode_pesanan' => $_externalId
+                ])->num_rows();
 
+                if($transfer_exists == 0){
+
+                    $user = $this->db->select(
+                        'cart.etd',
+                        'cart.cart_user', 
+                        'user.nm_user'
+                    )
+                    ->from('cart')
+                    ->join('user', 'user.id_user = cart.cart_user')
+                    ->where('cart.kode_cart', $_externalId)
+                    ->get()->result()[0];
+
+                    $this->db->insert('bukti_transfer', [
+                        'kode_pesanan' => $_externalId,
+                        'an_pengirim' => $user->nm_user,
+                        'nominal' => $_paidAmount,
+                        'tgl_byr' => $date,
+                        'etd_kirim' => $user->etd,
+                    ]);
+
+                }
+
+
+            }else if($_status == 'EXPIRED'){
+                $status = 'Sudah Kadaluarsa';
+                $this->db->set('status_pembayaran', $status)
+                ->where(['kode_cart' => $_externalId])
+                ->update('cart');
+            }
+            if ($this->db->trans_status() === FALSE){
+                    $this->db->trans_rollback();
+            }else{
+                    $this->db->trans_commit();
+            }
+            return $this->output->set_content_type('application/json')
+            ->set_output(json_encode([
+                'status' => true,
+                'message' => 'Get Request Active',
+                'detail' => $request,
+            ]));
+        }catch(Exception $e) {
+            $this->db->trans_rollback();
+            return $this->output->set_content_type('application/json')
+            ->set_output(json_encode([
+                'status' => false,
+                'errors' => [
+                    'message' => $e->getMessage(),
+                    'type' => 'input',
+                ],
+                'detail' => [],
+            ]));
+        }
+        
+    }
+
+    function create_invoice(){
+        xendit_loaded();
         $this->db->trans_begin();
         try {
             $action = $this->input->post('action');
@@ -69,7 +162,7 @@ class Chekout extends CI_Controller
             $param_invoice = [
                 'external_id' => $kode_chekout,
                 'amount' => $data_cart['total_pembayaran'],
-                'description' => 'Invoice Demo',
+                'description' => 'Invoice',
                 'invoice_duration' => 86400,
                 'customer' => [
                     'given_names' => $name_user,
@@ -78,11 +171,13 @@ class Chekout extends CI_Controller
                 ],
             ];
 
-            $createInvoice = \Xendit\Invoice::create($param_invoice);
+            $createInvoice = Invoice::create($param_invoice);
+            
+            $dateConvert = Carbon::parse($createInvoice['expiry_date']);
 
             $data_cart['no_pembayaran'] = $createInvoice['id'];
-            $data_cart['tgl_pembayaran'] = null;
-            $data_cart['jam_pembayaran'] = null;
+            $data_cart['tgl_pembayaran'] = $dateConvert->format('m-d-Y');
+            $data_cart['jam_pembayaran'] = $dateConvert->format('H:i:s');
             $data_cart['mode_pembayaran'] = null;
             $data_cart['url_invoice'] = $createInvoice['invoice_url'];
 

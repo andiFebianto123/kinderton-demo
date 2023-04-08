@@ -28,6 +28,7 @@ class M_cart extends CI_Model
         $this->db->order_by('id_cart', 'desc');
         return $query->result();
     }
+    
     function m_data_cart_ditolak()
     {
         $data_user = $this->session->userdata("id_user");
